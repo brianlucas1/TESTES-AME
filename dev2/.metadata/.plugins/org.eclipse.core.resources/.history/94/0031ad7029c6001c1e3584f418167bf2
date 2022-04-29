@@ -1,0 +1,48 @@
+package com.acme.blog.domain.comment;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class CommentService {
+	
+	@Autowired
+	CommentRepository repo;
+
+	/**
+	 * Returns a list of all comments for a blog post with passed id.
+	 *
+	 * @param postId id of the post
+	 * @return list of comments sorted by creation date descending - most recent first
+	 * @throws IllegalArgumentException if there is no blog post for passed postId
+	 */
+	public List<CommentDto> getCommentsForPost(Long postId) {
+
+		CommentDto comment = repo
+				.findById(postId)
+				.orElseThrow();
+		
+		if(comment != null) {
+			return repo.findAllById(postId);
+		}
+
+	}
+
+	/**
+	 * Creates a new comment
+	 *
+	 * @param newCommentDto data of new comment
+	 * @return id of created comment
+	 * @throws IllegalArgumentException if there is no blog post for passed newCommentDto.postId
+	 */
+	public Long addComment(NewCommentDto newCommentDto) {
+
+		// TODO: Missing implementation
+
+		return null;
+	}
+
+
+}
